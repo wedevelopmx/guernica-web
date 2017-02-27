@@ -2,28 +2,33 @@
 <html lang="en" xmlns:th="http://www.thymelef.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Home</title>
     <title>Guernica</title>
-    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
-          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
-          rel="stylesheet" media="screen" />
 
-    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
-            th:src="@{/webjars/jquery/3.1.1-1/jquery.min.js}"></script>
-
-    <link href="../static/css/spring-core.css"
-          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+    <div th:replace="fragments/imports_header :: imports"></div>
 
 </head>
 <body>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <h1 class="text-center">Home</h1>
+    <div th:replace="fragments/header :: header"></div>
+
+    <section id="main">
+        <div th:replace="fragments/sidebar :: sidebar"></div>
+
+        <section id="content">
+            <div class="container">
+                <div class="card">
+                    <div class="card-body card-padding text-center">
+                        <h4>Material Admin Seed Project</h4>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </section>
+
+    <div th:replace="fragments/footer :: footer"></div>
+
+    <div th:replace="fragments/imports_footer :: imports"></div>
+
 
 </body>
 </html>

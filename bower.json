@@ -1,0 +1,27 @@
+{
+  "name": "guernica-web",
+  "homepage": "https://github.com/wedevelopmx/guernica-web",
+  "authors": [
+    "Cristian Colorado <ccoloradoc@gmail.com>"
+  ],
+  "description": "Water Purification Plan Administrator",
+  "main": "",
+  "keywords": [
+    "water",
+    "purification",
+    "plant",
+    "app",
+    "admin"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "material-design-iconic-font": "^2.2.0"
+  }
+}
