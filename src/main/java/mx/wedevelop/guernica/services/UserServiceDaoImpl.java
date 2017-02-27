@@ -1,6 +1,7 @@
 package mx.wedevelop.guernica.services;
 
 import mx.wedevelop.guernica.models.User;
+import mx.wedevelop.guernica.services.security.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +15,17 @@ import java.util.List;
 @Service
 public class UserServiceDaoImpl implements UserServiceDao {
 
-    EntityManagerFactory emf;
+    private EntityManagerFactory emf;
+    private SecurityService securityService;
 
     @Autowired
     public void setEmf(EntityManagerFactory emf) {
         this.emf = emf;
+    }
+
+    @Autowired
+    public void setSecurityService(SecurityService securityService) {
+        this.securityService = securityService;
     }
 
     @Override
@@ -46,7 +53,7 @@ public class UserServiceDaoImpl implements UserServiceDao {
         if(result.isEmpty())
             return null;
         else
-            return result.get(1);
+            return result.get(0);
     }
 
     @Override
@@ -54,6 +61,11 @@ public class UserServiceDaoImpl implements UserServiceDao {
         EntityManager em = emf.createEntityManager();
 
         em.getTransaction().begin();
+
+        if(user.getPassword() != null) {
+            user.setEncodedPassword(securityService.encryptString(user.getPassword()));
+        }
+
         User savedUser = em.merge(user);
         em.getTransaction().commit();
         return savedUser;

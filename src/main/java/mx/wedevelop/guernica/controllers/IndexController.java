@@ -2,6 +2,7 @@ package mx.wedevelop.guernica.controllers;
 
 import mx.wedevelop.guernica.models.User;
 import mx.wedevelop.guernica.services.UserServiceDao;
+import mx.wedevelop.guernica.services.security.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +17,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class IndexController {
 
     private UserServiceDao userServiceDao;
+    private SecurityService securityService;
 
     @Autowired
     public void setUserServiceDao(UserServiceDao userServiceDao) {
         this.userServiceDao = userServiceDao;
+    }
+
+    @Autowired
+    public void setSecurityService(SecurityService securityService) {
+        this.securityService = securityService;
     }
 
     @RequestMapping("/")
@@ -38,9 +45,9 @@ public class IndexController {
     public String login(@ModelAttribute("user")  User user, Model model) {
         User foundUser = userServiceDao.findByUserName(user.getUserName());
 
-        if(foundUser != null) {
+        if(foundUser != null && securityService.checkPassword(user.getPassword(), foundUser.getEncodedPassword())) {
             System.out.println("Found : " + foundUser.getUserName());
-            return "home";
+            return "redirect:/home";
         } else {
             model.addAttribute("errorMessage", "Could not find username " + user.getUserName());
             return "redirect:/";
@@ -51,8 +58,12 @@ public class IndexController {
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signIn(@ModelAttribute("user") User user, Model model) {
         User savedUser = userServiceDao.saveOrUpdate(user);
+        return "home";
+    }
 
-        System.out.println("Saved: " + savedUser.getUserName());
+    @RequestMapping("/home")
+    public String home(Model model) {
+        //TODO: Validate sign in
         return "home";
     }
 }
