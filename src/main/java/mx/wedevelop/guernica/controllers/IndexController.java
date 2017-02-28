@@ -58,7 +58,7 @@ public class IndexController {
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signIn(@ModelAttribute("user") User user, Model model) {
         User savedUser = userServiceDao.saveOrUpdate(user);
-        return "home";
+        return "redirect:/home";
     }
 
     @RequestMapping("/home")

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymelef.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Guernica</title>
+
+    <div th:replace="fragments/imports_header :: imports"></div>
+
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<section id="main">
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+
+    <section id="content">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h2>
+                        Nuevo Producto
+                        <small>Agregar nuevo elemento.</small>
+                    </h2>
+                </div>
+                <div class="card-body card-padding">
+                    <form th:object="${product}" th:action="@{/product}" method="post">
+                        <input type="hidden" th:field="*{id}"/>
+                        <input type="hidden" th:field="*{version}"/>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Pet name"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="desc">Description</label>
+                            <input type="text" th:field="*{description}" class="form-control" id="desc" placeholder="Description"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="cost">Cost</label>
+                            <input type="number" th:field="*{unitCost}" class="form-control" id="cost" placeholder="00.00"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <a th:href="@{/product}" class="btn btn-default">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<div th:replace="fragments/imports_footer :: imports"></div>
+
+
+</body>
+</html>

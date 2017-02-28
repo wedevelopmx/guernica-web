@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymelef.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Guernica</title>
+
+    <div th:replace="fragments/imports_header :: imports"></div>
+
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<section id="main">
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+
+    <section id="content">
+        <div class="container">
+            <div class="card">
+                <div class="card-header bgm-blue">
+                    <h2>Catalogo <small>Estos son los productos disponibles en tu catalogo.</small></h2>
+                    <a th:href="@{/product/new}" class="bgm-red btn btn-default bg btn-float waves-effect waves-circle waves-float">
+                        <i class="zmdi zmdi-plus"></i>
+                    </a>
+                </div>
+                <div class="card-body card-padding text-center">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Descripcion</th>
+                                <th>Precio</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody th:if="${not #lists.isEmpty(productList)}">
+                            <tr th:each="product : ${productList}">
+                                <td th:text="${product.id}"></td>
+                                <td th:text="${product.name}"></td>
+                                <td th:text="${product.description}"></td>
+                                <td th:text="${product.unitCost}"></td>
+                                <td>
+                                    <a th:href="${'/product/' + product.id}" class="btn btn-default waves-effect">
+                                        <i class="zmdi zmdi-eye"></i></a>
+                                    <a th:href="${'/product/' + product.id + '/edit'}" class="btn btn-default waves-effect">
+                                        <i class="zmdi zmdi-edit"></i></a>
+                                    <a th:href="${'/product/' + product.id + '/delete'}" class="btn btn-default waves-effect">
+                                        <i class="zmdi zmdi-delete"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<div th:replace="fragments/imports_footer :: imports"></div>
+
+
+</body>
+</html>
