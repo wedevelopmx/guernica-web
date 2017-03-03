@@ -14,14 +14,7 @@ import java.util.List;
  * Created by colorado on 27/02/17.
  */
 @Service
-public class ProductServiceImpl implements ProductService {
-
-    private EntityManagerFactory emf;
-
-    @Autowired
-    public void setEmf(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
+public class ProductServiceImpl extends AbstractJpaDaoService implements ProductService {
 
     @Override
     public List<Product> findAll() {

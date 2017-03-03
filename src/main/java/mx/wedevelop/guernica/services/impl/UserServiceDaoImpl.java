@@ -14,15 +14,9 @@ import java.util.List;
  * Created by colorado on 26/02/17.
  */
 @Service
-public class UserServiceDaoImpl implements UserServiceDao {
+public class UserServiceDaoImpl extends AbstractJpaDaoService implements UserServiceDao {
 
-    private EntityManagerFactory emf;
     private SecurityService securityService;
-
-    @Autowired
-    public void setEmf(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
 
     @Autowired
     public void setSecurityService(SecurityService securityService) {

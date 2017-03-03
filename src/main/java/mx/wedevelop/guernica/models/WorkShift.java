@@ -1,6 +1,7 @@
 package mx.wedevelop.guernica.models;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Date;
 
@@ -14,6 +15,20 @@ public class WorkShift extends AbstractDomain {
     private Integer weekday;
     private Date startDate;
     private Date endDate;
+
+    @ManyToOne
+    private User user;
+
+    public WorkShift() {
+
+    }
+
+    public WorkShift(String name, Integer weekday, Date startDate, Date endDate, User user) {
+        this.name = name;
+        this.weekday = weekday;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 
     public String getName() {
         return name;
@@ -45,5 +60,13 @@ public class WorkShift extends AbstractDomain {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

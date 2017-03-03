@@ -18,6 +18,10 @@ public class User extends AbstractDomain {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<Product> productList = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+    private List<WorkShift> workShiftList = new ArrayList<>();
+
+
     public User() {
 
     }
@@ -68,4 +72,14 @@ public class User extends AbstractDomain {
         productList.remove(product);
         product.setUser(null);
     }
+
+    public List<WorkShift> getWorkShiftList() {
+        return workShiftList;
+    }
+
+    public void setWorkShiftList(List<WorkShift> workShiftList) {
+        this.workShiftList = workShiftList;
+    }
+
+
 }
