@@ -1,6 +1,7 @@
-package mx.wedevelop.guernica.services;
+package mx.wedevelop.guernica.services.impl;
 
 import mx.wedevelop.guernica.models.User;
+import mx.wedevelop.guernica.services.UserServiceDao;
 import mx.wedevelop.guernica.services.security.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,5 +70,10 @@ public class UserServiceDaoImpl implements UserServiceDao {
         User savedUser = em.merge(user);
         em.getTransaction().commit();
         return savedUser;
+    }
+
+    @Override
+    public void delete(int id) {
+
     }
 }

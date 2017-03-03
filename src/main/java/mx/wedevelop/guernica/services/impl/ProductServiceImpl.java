@@ -1,6 +1,7 @@
-package mx.wedevelop.guernica.services;
+package mx.wedevelop.guernica.services.impl;
 
 import mx.wedevelop.guernica.models.Product;
+import mx.wedevelop.guernica.services.CRUDService;
 import mx.wedevelop.guernica.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

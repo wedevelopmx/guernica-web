@@ -7,9 +7,6 @@ import java.util.List;
 /**
  * Created by colorado on 26/02/17.
  */
-public interface UserServiceDao {
-    List<User> findAll();
-    User findById(int id);
-    User findByUserName(String userName);
-    User saveOrUpdate(User user);
+public interface UserServiceDao extends CRUDService<User> {
+
 }
