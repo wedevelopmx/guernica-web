@@ -6,13 +6,8 @@ import javax.persistence.*;
  * Created by colorado on 27/02/17.
  */
 @Entity
-public class Product {
+public class Product extends AbstractDomain {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    @Version
-    private Integer version;
     private String name;
     private String description;
     private double unitCost;
@@ -27,22 +22,6 @@ public class Product {
         this.description = description;
         this.unitCost = unitCost;
         this.user = user;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
     }
 
     public String getName() {

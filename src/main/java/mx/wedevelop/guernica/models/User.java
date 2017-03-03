@@ -8,13 +8,8 @@ import java.util.List;
  * Created by colorado on 26/02/17.
  */
 @Entity
-public class User {
+public class User extends AbstractDomain {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    @Version
-    private Integer version;
     private String userName;
     @Transient
     private String password;
@@ -30,22 +25,6 @@ public class User {
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
     }
 
     public String getUserName() {
