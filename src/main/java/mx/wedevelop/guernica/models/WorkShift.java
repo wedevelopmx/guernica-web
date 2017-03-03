@@ -28,6 +28,7 @@ public class WorkShift extends AbstractDomain {
         this.weekday = weekday;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.user = user;
     }
 
     public String getName() {
