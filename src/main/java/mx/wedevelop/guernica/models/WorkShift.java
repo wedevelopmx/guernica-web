@@ -1,8 +1,11 @@
 package mx.wedevelop.guernica.models;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.criteria.CriteriaBuilder;
+import mx.wedevelop.guernica.enums.ShiftDay;
+import mx.wedevelop.guernica.enums.ShiftType;
+
+import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -11,10 +14,10 @@ import java.util.Date;
 @Entity
 public class WorkShift extends AbstractDomain {
 
-    private String name;
-    private Integer weekday;
-    private Date startDate;
-    private Date endDate;
+    private ShiftType shiftType;
+    private ShiftDay shiftDay;
+    private String startHour;
+    private String endHour;
 
     @ManyToOne
     private User user;
@@ -23,44 +26,28 @@ public class WorkShift extends AbstractDomain {
 
     }
 
-    public WorkShift(String name, Integer weekday, Date startDate, Date endDate, User user) {
-        this.name = name;
-        this.weekday = weekday;
-        this.startDate = startDate;
-        this.endDate = endDate;
+    public WorkShift(ShiftType shiftType, ShiftDay shiftDay, String startHour, String endHour, User user) {
+        this.shiftType = shiftType;
+        this.shiftDay = shiftDay;
+        this.startHour = startHour;
+        this.endHour = endHour;
         this.user = user;
     }
 
-    public String getName() {
-        return name;
+    public void setShiftType(ShiftType shiftType) {
+        this.shiftType = shiftType;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setShiftDay(ShiftDay shiftDay) {
+        this.shiftDay = shiftDay;
     }
 
-    public Integer getWeekday() {
-        return weekday;
+    public ShiftType getShiftType() {
+        return shiftType;
     }
 
-    public void setWeekday(Integer weekday) {
-        this.weekday = weekday;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public ShiftDay getShiftDay() {
+        return shiftDay;
     }
 
     public User getUser() {
@@ -70,4 +57,21 @@ public class WorkShift extends AbstractDomain {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public String getStartHour() {
+        return startHour;
+    }
+
+    public void setStartHour(String startHour) {
+        this.startHour = startHour;
+    }
+
+    public String getEndHour() {
+        return endHour;
+    }
+
+    public void setEndHour(String endHour) {
+        this.endHour = endHour;
+    }
+
 }

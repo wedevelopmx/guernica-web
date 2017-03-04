@@ -1,6 +1,8 @@
 package mx.wedevelop.guernica.services;
 
 import com.sun.xml.internal.ws.api.pipe.FiberContextSwitchInterceptor;
+import mx.wedevelop.guernica.enums.ShiftDay;
+import mx.wedevelop.guernica.enums.ShiftType;
 import mx.wedevelop.guernica.models.User;
 import mx.wedevelop.guernica.models.WorkShift;
 import org.junit.Before;
@@ -10,10 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -62,27 +60,16 @@ public class WorkShiftServiceImplTest {
 
     @Test
     public void testSaveOrUpdate() {
-        DateFormat df = new SimpleDateFormat("HH:mm:ss");
-        Date startHour = null;
-        Date endHour = null;
-
-        try {
-            startHour = df.parse("08:00:00");
-            endHour = df.parse("20:00:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        WorkShift workShift = new WorkShift("allDay", 7, startHour, endHour, user);
+        WorkShift workShift = new WorkShift(ShiftType.MORNIGN, ShiftDay.SATURDAY, "8:00 AM", "8:00 PM", user);
 
         WorkShift savedWorkShift = workShiftService.saveOrUpdate(workShift);
 
         assert savedWorkShift != null;
         assert savedWorkShift.getId() != null;
-        assert savedWorkShift.getName() == workShift.getName();
-        assert savedWorkShift.getWeekday() == workShift.getWeekday();
-        assert df.format(savedWorkShift.getStartDate()).equalsIgnoreCase(df.format(workShift.getStartDate()));
-        assert df.format(savedWorkShift.getEndDate()).equalsIgnoreCase(df.format(workShift.getEndDate()));
+        assert savedWorkShift.getShiftDay() == workShift.getShiftDay();
+        assert savedWorkShift.getShiftType() == workShift.getShiftType();
+        assert savedWorkShift.getStartHour().equalsIgnoreCase(workShift.getStartHour());
+        assert savedWorkShift.getEndHour().equalsIgnoreCase(workShift.getEndHour());
 
         assert savedWorkShift.getUser() != null;
         assert savedWorkShift.getUser().getId() == user.getId();

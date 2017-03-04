@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymelef.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Guernica</title>
+
+    <div th:replace="fragments/imports_header :: imports"></div>
+
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<section id="main">
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+
+    <section id="content">
+        <div class="container">
+            <div class="card">
+                <div class="card-header bgm-blue">
+                    <h2>
+                        Nuevo horario
+                        <small>Agregar nuevo elemento.</small>
+                    </h2>
+                </div>
+                <div class="card-body card-padding">
+                    <form class="row" th:object="${workShift}" th:action="@{/workshift}" method="post">
+                        <input type="hidden" th:field="*{id}"/>
+                        <input type="hidden" th:field="*{version}"/>
+                        <div class="form-group col-sm-6">
+                            <label for="shiftType">Type: </label>
+                            <div class="select">
+                                <select th:field="*{shiftType}" class="form-control input-sm">
+                                    <option th:each="type : ${shiftTypes}" th:value="${type}" th:text="${type}">Wireframe</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group  col-sm-6">
+                            <label for="shiftDay">Day: </label>
+                            <div class="select">
+                                <select th:field="*{shiftDay}" class="form-control input-sm">
+                                    <option th:each="day : ${shiftDays}" th:value="${day}" th:text="${day}">Wireframe</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="startHour">Inicio: </label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="zmdi zmdi-time"></i></span>
+                                <div class="dtp-container">
+                                    <input th:field="*{startHour}" class="form-control time-picker" placeholder="Click here..." style="" type="text"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="endHour">Final: </label>
+                            <div class="input-group form-group">
+                                <span class="input-group-addon"><i class="zmdi zmdi-time"></i></span>
+                                <div class="dtp-container">
+                                    <input th:field="*{endHour}" class="form-control time-picker" placeholder="Click here..." style="" type="text"/>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <a th:href="@{/workshift}" class="btn btn-default">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<div th:replace="fragments/imports_footer :: imports"></div>
+
+
+</body>
+</html>

@@ -19,22 +19,26 @@
             <div class="card">
                 <div class="card-header bgm-blue">
                     <h2>
-                        Nuevo Producto
+                        Producto
                         <small>Agregar nuevo elemento.</small>
                     </h2>
                 </div>
                 <div class="card-body card-padding">
                     <div class="row">
-                        <span class="col-sm-3 text-right">Nombre: </span>
-                        <span class="col-sm-9" th:text="${product.name}"></span>
+                        <span class="col-sm-3 text-right">Type: </span>
+                        <span class="col-sm-9" th:text="${workShift.shiftType}"></span>
                     </div>
                     <div class="row">
-                        <span class="col-sm-3 text-right">Descripcion: </span>
-                        <span class="col-sm-9" th:text="${product.description}"></span>
+                        <span class="col-sm-3 text-right">Day: </span>
+                        <span class="col-sm-9" th:text="${workShift.shiftDay}"></span>
                     </div>
                     <div class="row">
-                        <span class="col-sm-3 text-right">Price: </span>
-                        <span class="col-sm-9" th:text="${product.unitCost}"></span>
+                        <span class="col-sm-3 text-right">Start: </span>
+                        <span class="col-sm-9" th:text="${workShift.startHour}"></span>
+                    </div>
+                    <div class="row">
+                        <span class="col-sm-3 text-right">End: </span>
+                        <span class="col-sm-9" th:text="${workShift.endHour}"></span>
                     </div>
                 </div>
             </div>

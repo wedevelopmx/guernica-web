@@ -1,5 +1,7 @@
 package mx.wedevelop.guernica.bootstrap;
 
+import mx.wedevelop.guernica.enums.ShiftDay;
+import mx.wedevelop.guernica.enums.ShiftType;
 import mx.wedevelop.guernica.models.Product;
 import mx.wedevelop.guernica.models.User;
 import mx.wedevelop.guernica.models.WorkShift;
@@ -63,22 +65,14 @@ public class JpaSpringBootstrap implements ApplicationListener<ContextRefreshedE
     }
 
     private void populateWorkShift(User user) {
-        DateFormat df = new SimpleDateFormat("HH:mm:ss");
-        Date startHour = null;
-        Date endHour = null;
+        String startHour = "08:00 AM";
+        String endHour = "08:00 PM";
 
-        try {
-            startHour = df.parse("08:00:00");
-            endHour = df.parse("20:00:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        workShiftService.saveOrUpdate(new WorkShift("allDay", 1, startHour, endHour, user));
-        workShiftService.saveOrUpdate(new WorkShift("allDay", 2, startHour, endHour, user));
-        workShiftService.saveOrUpdate(new WorkShift("allDay", 3, startHour, endHour, user));
-        workShiftService.saveOrUpdate(new WorkShift("allDay", 4, startHour, endHour, user));
-        workShiftService.saveOrUpdate(new WorkShift("allDay", 5, startHour, endHour, user));
-        workShiftService.saveOrUpdate(new WorkShift("allDay", 6, startHour, endHour, user));
+        workShiftService.saveOrUpdate(new WorkShift(ShiftType.FULL, ShiftDay.SUNDAY, startHour, endHour, user));
+        workShiftService.saveOrUpdate(new WorkShift(ShiftType.FULL, ShiftDay.MONDAY, startHour, endHour, user));
+        workShiftService.saveOrUpdate(new WorkShift(ShiftType.FULL, ShiftDay.TUESDAY, startHour, endHour, user));
+        workShiftService.saveOrUpdate(new WorkShift(ShiftType.FULL, ShiftDay.WEDNESDAY, startHour, endHour, user));
+        workShiftService.saveOrUpdate(new WorkShift(ShiftType.FULL, ShiftDay.THURSDAY, startHour, endHour, user));
+        workShiftService.saveOrUpdate(new WorkShift(ShiftType.FULL, ShiftDay.FRIDAY, startHour, endHour, user));
     }
 }

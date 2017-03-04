@@ -1,3 +1,14 @@
+$(document).ready(function() {
+    //Time
+    if ($('.time-picker')[0]) {
+        $('.time-picker').datetimepicker({
+            format: 'LT'
+        });
+    }
+});
+
+
+
 $(document).ready(function () {
     $('body').on('click', '[data-ma-action]', function (e) {
         e.preventDefault();
