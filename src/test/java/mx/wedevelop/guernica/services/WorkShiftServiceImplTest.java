@@ -1,6 +1,5 @@
 package mx.wedevelop.guernica.services;
 
-import com.sun.xml.internal.ws.api.pipe.FiberContextSwitchInterceptor;
 import mx.wedevelop.guernica.enums.ShiftDay;
 import mx.wedevelop.guernica.enums.ShiftType;
 import mx.wedevelop.guernica.models.User;
@@ -60,7 +59,7 @@ public class WorkShiftServiceImplTest {
 
     @Test
     public void testSaveOrUpdate() {
-        WorkShift workShift = new WorkShift(ShiftType.MORNIGN, ShiftDay.SATURDAY, "8:00 AM", "8:00 PM", user);
+        WorkShift workShift = new WorkShift(ShiftType.MORNING, ShiftDay.SATURDAY, "8:00 AM", "8:00 PM", user);
 
         WorkShift savedWorkShift = workShiftService.saveOrUpdate(workShift);
 

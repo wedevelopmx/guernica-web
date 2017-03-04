@@ -6,4 +6,5 @@ package mx.wedevelop.guernica.models;
 public class Shift extends AbstractDomain {
 
 
+
 }

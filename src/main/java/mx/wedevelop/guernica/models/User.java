@@ -21,6 +21,8 @@ public class User extends AbstractDomain {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<WorkShift> workShiftList = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+    private List<Order> orderDetails = new ArrayList<>();
 
     public User() {
 
@@ -81,5 +83,11 @@ public class User extends AbstractDomain {
         this.workShiftList = workShiftList;
     }
 
+    public List<Order> getOrderDetails() {
+        return orderDetails;
+    }
 
+    public void setOrderDetails(List<Order> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
 }

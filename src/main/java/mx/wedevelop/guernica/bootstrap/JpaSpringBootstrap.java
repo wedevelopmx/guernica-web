@@ -2,9 +2,8 @@ package mx.wedevelop.guernica.bootstrap;
 
 import mx.wedevelop.guernica.enums.ShiftDay;
 import mx.wedevelop.guernica.enums.ShiftType;
-import mx.wedevelop.guernica.models.Product;
-import mx.wedevelop.guernica.models.User;
-import mx.wedevelop.guernica.models.WorkShift;
+import mx.wedevelop.guernica.models.*;
+import mx.wedevelop.guernica.services.OrderService;
 import mx.wedevelop.guernica.services.ProductService;
 import mx.wedevelop.guernica.services.UserServiceDao;
 import mx.wedevelop.guernica.services.WorkShiftService;
@@ -17,6 +16,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created by colorado on 27/02/17.
@@ -29,6 +30,8 @@ public class JpaSpringBootstrap implements ApplicationListener<ContextRefreshedE
     private ProductService productService;
 
     private WorkShiftService workShiftService;
+
+    private OrderService orderService;
 
     @Autowired
     public void setUserServiceDao(UserServiceDao userServiceDao) {
@@ -45,6 +48,11 @@ public class JpaSpringBootstrap implements ApplicationListener<ContextRefreshedE
         this.workShiftService = workShiftService;
     }
 
+    @Autowired
+    public void setOrderService(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         populateDatabase();
@@ -54,6 +62,7 @@ public class JpaSpringBootstrap implements ApplicationListener<ContextRefreshedE
         User user = userServiceDao.saveOrUpdate(new User("colorado", "pass1word"));
         populateProducts(user);
         populateWorkShift(user);
+        populateOrder(user);
     }
 
     private void populateProducts(User user) {
@@ -74,5 +83,25 @@ public class JpaSpringBootstrap implements ApplicationListener<ContextRefreshedE
         workShiftService.saveOrUpdate(new WorkShift(ShiftType.FULL, ShiftDay.WEDNESDAY, startHour, endHour, user));
         workShiftService.saveOrUpdate(new WorkShift(ShiftType.FULL, ShiftDay.THURSDAY, startHour, endHour, user));
         workShiftService.saveOrUpdate(new WorkShift(ShiftType.FULL, ShiftDay.FRIDAY, startHour, endHour, user));
+    }
+
+    private void populateOrder(User user) {
+        List<Product> productList = productService.findAll();
+
+        orderService.saveOrUpdate(mockOrder(user, productList));
+        orderService.saveOrUpdate(mockOrder(user, productList));
+        orderService.saveOrUpdate(mockOrder(user, productList));
+    }
+
+    private Order mockOrder(User user, List<Product> productList) {
+        Random rand = new Random();
+        Order order = new Order();
+
+        order.setUser(user);
+        for(Product product : productList) {
+            order.addOrderDetail(new OrderDetail(rand.nextInt(10) + 1, product));
+        }
+
+        return order;
     }
 }
