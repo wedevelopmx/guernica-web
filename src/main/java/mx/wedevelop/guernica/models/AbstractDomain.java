@@ -1,5 +1,7 @@
 package mx.wedevelop.guernica.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,6 +14,8 @@ public abstract class AbstractDomain implements Domain {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @JsonIgnore
     @Version
     private Integer version;
 

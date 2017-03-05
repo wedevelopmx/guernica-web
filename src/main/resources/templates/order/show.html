@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymelef.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Guernica</title>
+
+    <div th:replace="fragments/imports_header :: imports"></div>
+
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<section id="main">
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+
+    <section id="content">
+        <div class="container">
+            <div class="card">
+                <div class="card-header bgm-blue">
+                    <h2>
+                        Nuevo Producto
+                        <small>Agregar nuevo elemento.</small>
+                    </h2>
+                </div>
+                <div class="card-body card-padding">
+                    <div class="row">
+                        <span class="col-sm-3 text-right">Nombre: </span>
+                        <span class="col-sm-9" th:text="${product.name}"></span>
+                    </div>
+                    <div class="row">
+                        <span class="col-sm-3 text-right">Descripcion: </span>
+                        <span class="col-sm-9" th:text="${product.description}"></span>
+                    </div>
+                    <div class="row">
+                        <span class="col-sm-3 text-right">Price: </span>
+                        <span class="col-sm-9" th:text="${product.unitCost}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<div th:replace="fragments/imports_footer :: imports"></div>
+
+
+</body>
+</html>

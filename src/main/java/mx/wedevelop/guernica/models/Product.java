@@ -1,5 +1,7 @@
 package mx.wedevelop.guernica.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -12,7 +14,8 @@ public class Product extends AbstractDomain {
     private String description;
     private double unitCost;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     public Product() { }

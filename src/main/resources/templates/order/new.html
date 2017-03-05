@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymelef.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Guernica</title>
+
+    <div th:replace="fragments/imports_header :: imports"></div>
+
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<section id="main" ng-app="order">
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+
+    <section id="content">
+        <div class="container">
+            <div class="card" ng-controller="OrderController">
+                <div class="card-header bgm-blue">
+                    <h2>
+                        Nueva Orden
+                        <small>Agregar nueva orden.</small>
+                    </h2>
+                    <a ng-click="newProduct()" class="bgm-red btn btn-default bg btn-float waves-circle waves-float">
+                        <i class="zmdi zmdi-plus"></i>
+                    </a>
+                </div>
+                <div class="card-body card-padding" th:object="${order}">
+                    <input type="hidden" th:field="*{id}"/>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripcion</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="detail in order.orderDetails">
+                                <td ng-bind="detail.product.name"></td>
+                                <td ng-bind="detail.product.description"></td>
+                                <td ng-bind="detail.product.unitCost | currency : '$' : 2"></td>
+                                <td ng-bind="detail.quantity"></td>
+                                <td ng-bind="detail.total | currency : '$' : 2"></td>
+                                <td>
+                                    <a class="btn bgm-red btn-icon waves-effect waves-circle waves-float">
+                                        <i class="zmdi zmdi-close"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td> <strong>Total:</strong> </td>
+                                <td ng-bind="grandTotal | currency: '$': 2"></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr ng-show="newForm">
+                                <td>
+                                    <select class="form-control"
+                                            ng-options="product.name for product in catalog track by product.id"
+                                            ng-model="selectedProduct"></select>
+                                </td>
+                                <td ng-bind="selectedProduct.description"></td>
+                                <td ng-bind="selectedProduct.unitCost | currency: '$': 2"></td>
+                                <td>
+                                    <input type="number" class="form-control" ng-model="quantity" />
+                                </td>
+                                <td ng-bind="selectedProduct.unitCost * quantity | currency: '$': 2"></td>
+                                <td>
+                                    <a ng-click="addProduct()" class="btn bgm-cyan btn-icon waves-effect waves-circle waves-float">
+                                        <i class="zmdi zmdi-check"></i></a>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <button type="button" ng-click="submit()" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<div th:replace="fragments/imports_footer :: imports"></div>
+
+<script src="../static/angular/app/order-detail.js"
+        th:src="@{/angular/order/app.js}"></script>
+
+</body>
+</html>

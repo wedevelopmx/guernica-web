@@ -46,4 +46,10 @@ public class Order extends AbstractDomain {
         orderDetails.remove(orderDetail);
         orderDetail.setOrder(null);
     }
+
+    public void attachOrderDetails() {
+        for(OrderDetail orderDetail: orderDetails) {
+            orderDetail.setOrder(this);
+        }
+    }
 }

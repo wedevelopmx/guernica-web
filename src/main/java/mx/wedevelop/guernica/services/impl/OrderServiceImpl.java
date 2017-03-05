@@ -2,6 +2,7 @@ package mx.wedevelop.guernica.services.impl;
 
 import mx.wedevelop.guernica.models.AbstractDomain;
 import mx.wedevelop.guernica.models.Order;
+import mx.wedevelop.guernica.models.OrderDetail;
 import mx.wedevelop.guernica.services.OrderService;
 import org.springframework.stereotype.Service;
 
@@ -45,4 +46,5 @@ public class OrderServiceImpl extends AbstractJpaDaoService implements OrderServ
         em.remove(em.find(Order.class, id));
         em.getTransaction().commit();
     }
+
 }

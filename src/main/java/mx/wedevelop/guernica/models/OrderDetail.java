@@ -1,5 +1,6 @@
 package mx.wedevelop.guernica.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -12,7 +13,7 @@ public class OrderDetail extends AbstractDomain {
 
     private Integer quantity;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Product product;
 
     @ManyToOne
