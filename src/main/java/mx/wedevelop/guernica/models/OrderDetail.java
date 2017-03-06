@@ -1,5 +1,7 @@
 package mx.wedevelop.guernica.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -13,9 +15,10 @@ public class OrderDetail extends AbstractDomain {
 
     private Integer quantity;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST})
     private Product product;
 
+    @JsonIgnore
     @ManyToOne
     private Order order;
 
@@ -50,5 +53,9 @@ public class OrderDetail extends AbstractDomain {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public Double getTotal() {
+        return quantity * product.getUnitCost();
     }
 }

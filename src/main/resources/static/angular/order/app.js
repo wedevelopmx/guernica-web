@@ -5,10 +5,9 @@ angular
     .module('order', [])
     .controller('OrderController', ['$scope', '$http', function($scope, $http) {
         $scope.order = {
+            total: 0,
             orderDetails: []
         };
-
-        $scope.grandTotal = 0;
 
         $scope.resetForm = function() {
             $scope.newForm = false;
@@ -30,7 +29,7 @@ angular
         }
 
         $scope.addProduct = function() {
-            $scope.grandTotal += $scope.selectedProduct.unitCost * $scope.quantity;
+            $scope.order.total += $scope.selectedProduct.unitCost * $scope.quantity;
             $scope.order.orderDetails.push({
                 product: $scope.selectedProduct,
                 quantity: $scope.quantity,
@@ -43,7 +42,9 @@ angular
         $scope.submit = function() {
             $http.post('/create-order', $scope.order)
                 .then(function(response) {
-                    console.log(response);
+                    if(response.data.id != null)
+                        window.location.pathname='/order';
+                    //console.log(response);
                 }, function(response) {
                     console.log(response);
                 })

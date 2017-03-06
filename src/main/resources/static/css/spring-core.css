@@ -1,0 +1,12 @@
+
+.inline-detail {
+    padding: 0;
+}
+
+.inline-detail ul li {
+    display: inline;
+}
+
+.inline-detail ul li:not(:last-child):after {
+    content: "|"
+}

@@ -19,7 +19,7 @@
             <div class="card">
                 <div class="card-header bgm-blue">
                     <h2>Catalogo <small>Estos son los productos disponibles en tu catalogo.</small></h2>
-                    <a th:href="@{/product/new}" class="bgm-red btn btn-default bg btn-float waves-effect waves-circle waves-float">
+                    <a th:href="@{/order/new}" class="bgm-red btn btn-default bg btn-float waves-effect waves-circle waves-float">
                         <i class="zmdi zmdi-plus"></i>
                     </a>
                 </div>
@@ -28,24 +28,28 @@
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Nombre</th>
-                                <th>Descripcion</th>
-                                <th>Precio</th>
-                                <th>Actions</th>
+                                <th>Details</th>
+                                <th>Total</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody th:if="${not #lists.isEmpty(productList)}">
-                            <tr th:each="product : ${productList}">
-                                <td th:text="${product.id}"></td>
-                                <td th:text="${product.name}"></td>
-                                <td th:text="${product.description}"></td>
-                                <td th:text="${product.unitCost}"></td>
+                        <tbody th:if="${not #lists.isEmpty(orderList)}">
+                            <tr th:each="order : ${orderList}">
+                                <td th:text="${order.id}"></td>
+                                <td class="inline-detail">
+                                    <ul th:if="${not #lists.isEmpty(order.orderDetails)}">
+                                        <li th:each="detail : ${order.orderDetails}">
+                                            <span th:text="${detail.product.name}"></span>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td th:text="${#numbers.formatDecimal(order.total, 0, 'COMMA', 2, 'POINT')}"></td>
                                 <td>
-                                    <a th:href="${'/product/' + product.id}" class="btn btn-default waves-effect">
+                                    <a th:href="${'/order/' + order.id}" class="btn btn-default waves-effect">
                                         <i class="zmdi zmdi-eye"></i></a>
-                                    <a th:href="${'/product/' + product.id + '/edit'}" class="btn btn-default waves-effect">
+                                    <a th:href="${'/order/' + order.id + '/edit'}" class="btn btn-default waves-effect">
                                         <i class="zmdi zmdi-edit"></i></a>
-                                    <a th:href="${'/product/' + product.id + '/delete'}" class="btn btn-default waves-effect">
+                                    <a th:href="${'/order/' + order.id + '/delete'}" class="btn btn-default waves-effect">
                                         <i class="zmdi zmdi-delete"></i></a>
                                 </td>
                             </tr>
@@ -71,7 +75,6 @@
 <div th:replace="fragments/footer :: footer"></div>
 
 <div th:replace="fragments/imports_footer :: imports"></div>
-
 
 </body>
 </html>

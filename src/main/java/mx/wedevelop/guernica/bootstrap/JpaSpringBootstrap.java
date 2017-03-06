@@ -96,11 +96,16 @@ public class JpaSpringBootstrap implements ApplicationListener<ContextRefreshedE
     private Order mockOrder(User user, List<Product> productList) {
         Random rand = new Random();
         Order order = new Order();
+        Double total = 0.0;
 
         order.setUser(user);
         for(Product product : productList) {
-            order.addOrderDetail(new OrderDetail(rand.nextInt(10) + 1, product));
+            OrderDetail orderDetail = new OrderDetail(rand.nextInt(10) + 1, product);
+            order.addOrderDetail(orderDetail);
+            total += orderDetail.getTotal();
         }
+
+        order.setTotal(total);
 
         return order;
     }

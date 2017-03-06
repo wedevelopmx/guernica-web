@@ -1,5 +1,7 @@
 package mx.wedevelop.guernica.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,9 @@ import java.util.List;
 @Table(name = "ORDER_HEADER")
 public class Order extends AbstractDomain {
 
+    private Double total;
+
+    @JsonIgnore
     @OneToOne
     private User user;
 
@@ -51,5 +56,13 @@ public class Order extends AbstractDomain {
         for(OrderDetail orderDetail: orderDetails) {
             orderDetail.setOrder(this);
         }
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
 }

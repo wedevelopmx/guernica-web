@@ -57,7 +57,7 @@
                                 <td></td>
                                 <td></td>
                                 <td> <strong>Total:</strong> </td>
-                                <td ng-bind="grandTotal | currency: '$': 2"></td>
+                                <td ng-bind="order.total | currency: '$': 2"></td>
                                 <td></td>
                             </tr>
                         </tbody>
@@ -92,8 +92,9 @@
 
 <div th:replace="fragments/imports_footer :: imports"></div>
 
-<script src="../static/angular/app/order-detail.js"
+<script src="../static/angular/order/app.js"
         th:src="@{/angular/order/app.js}"></script>
+
 
 </body>
 </html>
