@@ -19,23 +19,38 @@
             <div class="card">
                 <div class="card-header bgm-blue">
                     <h2>
-                        Nuevo Producto
-                        <small>Agregar nuevo elemento.</small>
+                        Order
+                        <small>Estos son los detalles de la orden.</small>
                     </h2>
                 </div>
                 <div class="card-body card-padding">
-                    <div class="row">
-                        <span class="col-sm-3 text-right">Nombre: </span>
-                        <span class="col-sm-9" th:text="${product.name}"></span>
-                    </div>
-                    <div class="row">
-                        <span class="col-sm-3 text-right">Descripcion: </span>
-                        <span class="col-sm-9" th:text="${product.description}"></span>
-                    </div>
-                    <div class="row">
-                        <span class="col-sm-3 text-right">Price: </span>
-                        <span class="col-sm-9" th:text="${product.unitCost}"></span>
-                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Cost</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </thead>
+                        <tbody th:if="${not #lists.isEmpty(order.orderDetails)}">
+                            <tr th:each="detail : ${order.orderDetails}">
+                                <td th:text="${detail.product.name}"></td>
+                                <td th:text="${detail.product.description}"></td>
+                                <td th:text="${detail.product.unitCost}"></td>
+                                <td th:text="${detail.quantity}"></td>
+                                <td th:text="${#numbers.formatDecimal(detail.product.unitCost * detail.quantity, 0, 'COMMA', 2, 'POINT')}"></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>Total:</strong></td>
+                            <td th:text="${#numbers.formatDecimal(order.total, 0, 'COMMA', 2, 'POINT')}"></td>
+                        </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
         </div>
