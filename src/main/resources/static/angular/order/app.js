@@ -5,9 +5,21 @@ angular
     .module('order', [])
     .controller('OrderController', ['$scope', '$http', function($scope, $http) {
         $scope.order = {
+            id: $('#id').val(),
             total: 0,
             orderDetails: []
         };
+
+        if($scope.order.id != 0) {
+            $http.get('/find-order/' + $scope.order.id)
+                .then(function(response) {
+                    //console.log(response.data);
+                    $scope.order = response.data;
+                }, function(response) {
+                    console.log(response);
+                })
+        }
+
 
         $scope.resetForm = function() {
             $scope.newForm = false;
@@ -48,6 +60,33 @@ angular
                 }, function(response) {
                     console.log(response);
                 })
+        }
+
+        $scope.removeProduct = function(id) {
+            $scope.order.orderDetails =
+                $scope.order.orderDetails.filter(function(detail) {
+                    if(detail.product.id != id) {
+                        return true;
+                    } else {
+                        $scope.order.total -= detail.product.unitCost * detail.quantity;
+                    }
+                });
+        }
+        
+        $scope.recalculate = function () {
+            $scope.order.total = 0;
+            for(i in $scope.order.orderDetails) {
+                var detail = $scope.order.orderDetails[i];
+                $scope.order.total += detail.quantity * detail.product.unitCost;
+            }
+        }
+
+        $scope.editProduct = function(detail) {
+            detail.edit = true;
+        }
+
+        $scope.saveProduct = function(detail) {
+            detail.edit = false;
         }
 
     }]);

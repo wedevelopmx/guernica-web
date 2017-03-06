@@ -44,10 +44,19 @@
                                 <td ng-bind="detail.product.name"></td>
                                 <td ng-bind="detail.product.description"></td>
                                 <td ng-bind="detail.product.unitCost | currency : '$' : 2"></td>
-                                <td ng-bind="detail.quantity"></td>
-                                <td ng-bind="detail.total | currency : '$' : 2"></td>
                                 <td>
-                                    <a class="btn bgm-red btn-icon waves-effect waves-circle waves-float">
+                                    <span ng-bind="detail.quantity" ng-hide="detail.edit"></span>
+                                    <input type="number" ng-model="detail.quantity" ng-show="detail.edit" ng-change="recalculate()"/>
+                                </td>
+                                <td ng-bind="detail.quantity * detail.product.unitCost | currency : '$' : 2"></td>
+                                <td>
+                                    <a ng-show="detail.edit" ng-click="saveProduct(detail)" class="btn btn-default waves-effect">
+                                        <i class="zmdi zmdi-check"></i>
+                                    </a>
+                                    <a ng-hide="detail.edit" ng-click="editProduct(detail)" class="btn btn-default waves-effect">
+                                        <i class="zmdi zmdi-edit"></i>
+                                    </a>
+                                    <a ng-click="removeProduct(detail.product.id)" class="btn btn-default waves-effect">
                                         <i class="zmdi zmdi-close"></i>
                                     </a>
                                 </td>

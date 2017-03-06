@@ -41,4 +41,9 @@ public class OrderDetailController {
         Order savedOrder = orderService.saveOrUpdate(order);
         return savedOrder;
     }
+
+    @RequestMapping("/find-order/{id}")
+    public @ResponseBody Order readOrder(@PathVariable Integer id) {
+        return orderService.findById(id);
+    }
 }
