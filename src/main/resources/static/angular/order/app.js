@@ -6,6 +6,7 @@ angular
     .controller('OrderController', ['$scope', '$http', function($scope, $http) {
         $scope.order = {
             id: $('#id').val(),
+            version: $('#version').val(),
             total: 0,
             orderDetails: []
         };
@@ -13,7 +14,7 @@ angular
         if($scope.order.id != 0) {
             $http.get('/find-order/' + $scope.order.id)
                 .then(function(response) {
-                    //console.log(response.data);
+                    console.log(response.data);
                     $scope.order = response.data;
                 }, function(response) {
                     console.log(response);

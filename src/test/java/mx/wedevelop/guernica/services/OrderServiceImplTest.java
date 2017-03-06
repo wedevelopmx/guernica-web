@@ -88,6 +88,31 @@ public class OrderServiceImplTest {
     }
 
     @Test
+    public void testUpdate() {
+        List<Product> productList = productService.findAll();
+        Order order = mockOrder(user, productList);
+
+        Order savedOrder = orderService.saveOrUpdate(order);
+
+        assert savedOrder != null;
+        assert savedOrder.getId() != null;
+        assert savedOrder.getOrderDetails() != null;
+        assert savedOrder.getOrderDetails().size() == productList.size();
+
+        assert savedOrder.getUser() != null;
+        assert savedOrder.getUser().getId() == order.getUser().getId();
+
+        savedOrder.getOrderDetails().get(0).setQuantity(10);
+        savedOrder.setTotal(400.0);
+
+        Order updatedOrder = orderService.saveOrUpdate(savedOrder);
+
+        assert updatedOrder != null;
+        assert updatedOrder.getId() != null;
+        assert updatedOrder.getId() == savedOrder.getId();
+    }
+
+    @Test
     public void testDelete() {
         orderService.delete(1);
         List<Order> orderList = orderService.findAll();

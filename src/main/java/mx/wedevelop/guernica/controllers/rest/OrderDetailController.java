@@ -1,11 +1,11 @@
 package mx.wedevelop.guernica.controllers.rest;
 
 import mx.wedevelop.guernica.models.Order;
-import mx.wedevelop.guernica.models.OrderDetail;
 import mx.wedevelop.guernica.models.Product;
 import mx.wedevelop.guernica.services.OrderService;
 import mx.wedevelop.guernica.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,19 +31,23 @@ public class OrderDetailController {
     }
 
     @RequestMapping("/catalog")
-    public @ResponseBody  List<Product> findProductList() {
+    @ResponseBody
+    public List<Product> findProductList() {
         return productService.findAll();
     }
 
     @RequestMapping(value = "/create-order", method = RequestMethod.POST)
-    public @ResponseBody Order addOrder(@RequestBody Order order) {
+    @ResponseBody
+    public Order addOrder(@RequestBody Order order) {
         order.attachOrderDetails();
         Order savedOrder = orderService.saveOrUpdate(order);
         return savedOrder;
     }
 
-    @RequestMapping("/find-order/{id}")
-    public @ResponseBody Order readOrder(@PathVariable Integer id) {
-        return orderService.findById(id);
+    @RequestMapping(value = "/find-order/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE} )
+    @ResponseBody
+    public Order readOrder(@PathVariable Integer id) {
+        Order order = orderService.findById(id);
+        return order;
     }
 }
