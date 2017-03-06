@@ -15,7 +15,6 @@ public abstract class AbstractDomain implements Domain {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @JsonIgnore
     @Version
     private Integer version;
 
