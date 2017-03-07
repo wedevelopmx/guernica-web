@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymelef.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Guernica</title>
+
+    <div th:replace="fragments/imports_header :: imports"></div>
+
+</head>
+<body>
+<div class="login-content">
+    <!-- Login -->
+    <div class="lc-block toggled" id="l-login">
+        <div class="lcb-form">
+            <div th:if="${param.error}" class="alert alert-danger">
+                <p>Invalid username and password.</p>
+            </div>
+            <div th:if="${param.logout}" class="alert alert-success">
+                <p>You've been logged out.</p>
+            </div>
+            <form th:object="${loginForm}" th:action="@{/login}" method="post" class="form">
+
+                <div class="form-group" th:class="${param.error} ? 'form-group has-error' : 'form-group'">
+                    <div class="fg-line">
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Username"/>
+                    </div>
+                </div>
+
+                <div class="form-group" th:class="${param.error} ? 'form-group has-error' : 'form-group'">
+                    <div class="fg-line">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Password"/>
+                    </div>
+                </div>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value=""/>
+                        <i class="input-helper"></i>
+                        Keep me signed in
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-login btn-success"><i class="zmdi zmdi-arrow-forward"></i></button>
+
+            </form>
+        </div>
+
+        <div class="lcb-navigation">
+            <a href="/register" data-ma-action="login-switch" data-ma-block="#l-register"><i class="zmdi zmdi-plus"></i> <span>Register</span></a>
+            <a href="" data-ma-action="login-switch" data-ma-block="#l-forget-password"><i>?</i> <span>Forgot Password</span></a>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/imports_footer :: imports"></div>
+</body>
+</html>
