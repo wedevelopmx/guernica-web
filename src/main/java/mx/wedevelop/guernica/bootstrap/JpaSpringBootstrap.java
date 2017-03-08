@@ -3,19 +3,12 @@ package mx.wedevelop.guernica.bootstrap;
 import mx.wedevelop.guernica.enums.ShiftDay;
 import mx.wedevelop.guernica.enums.ShiftType;
 import mx.wedevelop.guernica.models.*;
-import mx.wedevelop.guernica.services.OrderService;
-import mx.wedevelop.guernica.services.ProductService;
-import mx.wedevelop.guernica.services.UserServiceDao;
-import mx.wedevelop.guernica.services.WorkShiftService;
+import mx.wedevelop.guernica.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -27,6 +20,8 @@ public class JpaSpringBootstrap implements ApplicationListener<ContextRefreshedE
 
     private UserServiceDao userServiceDao;
 
+    private RoleService roleService;
+
     private ProductService productService;
 
     private WorkShiftService workShiftService;
@@ -36,6 +31,11 @@ public class JpaSpringBootstrap implements ApplicationListener<ContextRefreshedE
     @Autowired
     public void setUserServiceDao(UserServiceDao userServiceDao) {
         this.userServiceDao = userServiceDao;
+    }
+
+    @Autowired
+    public void setRoleService(RoleService roleService) {
+        this.roleService = roleService;
     }
 
     @Autowired
@@ -59,10 +59,18 @@ public class JpaSpringBootstrap implements ApplicationListener<ContextRefreshedE
     }
 
     private void populateDatabase() {
-        User user = userServiceDao.saveOrUpdate(new User("colorado", "pass1word"));
+        populateRoles();
+        User user = createSuperUser("colorado", "pass1word");
         populateProducts(user);
         populateWorkShift(user);
         populateOrder(user);
+    }
+
+    private User createSuperUser(String name, String password) {
+        User user = new User(name, password);
+        user.addRole(roleService.findById(1));
+        user.addRole(roleService.findById(2));
+        return userServiceDao.saveOrUpdate(user);
     }
 
     private void populateProducts(User user) {
@@ -108,5 +116,10 @@ public class JpaSpringBootstrap implements ApplicationListener<ContextRefreshedE
         order.setTotal(total);
 
         return order;
+    }
+
+    private void populateRoles() {
+        roleService.saveOrUpdate(new Role("USER", "Common user"));
+        roleService.saveOrUpdate(new Role("ADMIN", "Super user"));
     }
 }

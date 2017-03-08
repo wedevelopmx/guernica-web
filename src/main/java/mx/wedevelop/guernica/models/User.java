@@ -15,6 +15,13 @@ public class User extends AbstractDomain {
     private String password;
     private String encodedPassword;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable
+    // ~ defaults to @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "role_id"),
+    //     inverseJoinColumns = @joinColumn(name = "user_id"))
+    private List<Role> roleList = new ArrayList<>();
+
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<Product> productList = new ArrayList<>();
 
@@ -89,5 +96,17 @@ public class User extends AbstractDomain {
 
     public void setOrderDetails(List<Order> orderDetails) {
         this.orderDetails = orderDetails;
+    }
+
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
+    }
+
+    public void addRole(Role role) {
+        roleList.add(role);
     }
 }
