@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymelef.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Guernica</title>
+
+    <div th:replace="fragments/imports_header :: imports"></div>
+
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<section id="main">
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+
+    <section id="content">
+        <div class="container">
+            <div class="card">
+                <div class="card-header bgm-blue">
+                    <h2>Usuarios <small>Estos son los usuarios existentes en la plataforma.</small></h2>
+                </div>
+                <div class="card-body card-padding text-center">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>User Name</th>
+                            <th>Roles</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody th:if="${not #lists.isEmpty(userList)}">
+                        <tr th:each="user : ${userList}">
+                            <td th:text="${user.id}"></td>
+                            <td th:text="${user.userName}"></td>
+                            <td th:if="${not #lists.isEmpty(user.roleList)}" class="inline-detail">
+                                <ul>
+                                    <li th:each="role : ${user.roleList}" th:text="${role.name}"></li>
+                                </ul>
+
+                            </td>
+                            <td>
+                                <a th:href="${'/user/' + user.id}" class="btn btn-default waves-effect">
+                                    <i class="zmdi zmdi-eye"></i></a>
+                                <a th:href="${'/user/' + user.id + '/edit'}" class="btn btn-default waves-effect">
+                                    <i class="zmdi zmdi-edit"></i></a>
+                                <a th:href="${'/user/' + user.id + '/delete'}" class="btn btn-default waves-effect">
+                                    <i class="zmdi zmdi-delete"></i></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<div th:replace="fragments/imports_footer :: imports"></div>
+
+
+</body>
+</html>

@@ -806,8 +806,8 @@ $(document).ready(function(){
         }
     }
 
-    if ($('#effective-index')[0]) {
-        $.plot($("#effective-index"), dataset, options);
+    if ($('#effective-list.html')[0]) {
+        $.plot($("#effective-list.html"), dataset, options);
     }
 });
 $(document).ready(function(){
