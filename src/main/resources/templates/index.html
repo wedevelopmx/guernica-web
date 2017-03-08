@@ -16,6 +16,12 @@
 
     <section id="content">
         <div class="container">
+            <div th:if="${param.denied}" class="alert alert-danger">
+                <p>Sorry, you don't have privileges to see that resource.</p>
+            </div>
+            <div th:if="${param.welcome}" class="alert alert-success">
+                <p>Welcome to Guernica.</p>
+            </div>
             <div class="card">
                 <div class="card-header bgm-blue">
                     <h2>Ventas <small>Estas son las ventas.</small></h2>

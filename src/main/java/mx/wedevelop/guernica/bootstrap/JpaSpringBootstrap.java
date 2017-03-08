@@ -60,16 +60,18 @@ public class JpaSpringBootstrap implements ApplicationListener<ContextRefreshedE
 
     private void populateDatabase() {
         populateRoles();
-        User user = createSuperUser("colorado", "pass1word");
+        User user = createSuperUser("colorado", "pass1word", true);
+        createSuperUser("cervantes", "pass1word", false);
         populateProducts(user);
         populateWorkShift(user);
         populateOrder(user);
     }
 
-    private User createSuperUser(String name, String password) {
+    private User createSuperUser(String name, String password, boolean admin) {
         User user = new User(name, password);
-        user.addRole(roleService.findById(1));
-        user.addRole(roleService.findById(2));
+        user.addRole(roleService.findByName("USER"));
+        if(admin)
+            user.addRole(roleService.findByName("ADMIN"));
         return userServiceDao.saveOrUpdate(user);
     }
 

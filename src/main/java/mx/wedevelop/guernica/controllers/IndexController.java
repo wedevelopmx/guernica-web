@@ -32,7 +32,7 @@ public class IndexController {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("userName", user.getUsername());
 
-        return "list.html";
+        return "index";
     }
 
     @RequestMapping("/login")
@@ -49,7 +49,13 @@ public class IndexController {
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signIn(@ModelAttribute("user") User user, Model model) {
         User savedUser = userServiceDao.saveOrUpdate(user);
-        return "redirect:/home";
+        return "redirect:/?welcome";
+    }
+
+    @RequestMapping("/access_denied")
+    public String denied(Model model) {
+        model.addAttribute("error", "Access Denied");
+        return "redirect:/?denied";
     }
 
 }
