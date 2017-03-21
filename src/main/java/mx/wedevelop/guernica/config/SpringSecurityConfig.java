@@ -19,33 +19,33 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private AuthenticationProvider authenticationProvider;
-
-    @Autowired
-    @Qualifier(value = "daoAuthenticationProvider")
-    public void setAuthenticationProvider(AuthenticationProvider authenticationProvider) {
-        this.authenticationProvider = authenticationProvider;
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder(StrongPasswordEncryptor strongPasswordEncryptor) {
-        PasswordEncoder passwordEncoder = new PasswordEncoder();
-        passwordEncoder.setPasswordEncryptor(strongPasswordEncryptor);
-        return passwordEncoder;
-    }
-
-    @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider(PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-        return daoAuthenticationProvider;
-    }
-
-    @Autowired
-    public void configureAuthManager(AuthenticationManagerBuilder authenticationManagerBuilder) {
-        authenticationManagerBuilder.authenticationProvider(authenticationProvider);
-    }
+//    private AuthenticationProvider authenticationProvider;
+//
+//    @Autowired
+//    @Qualifier(value = "daoAuthenticationProvider")
+//    public void setAuthenticationProvider(AuthenticationProvider authenticationProvider) {
+//        this.authenticationProvider = authenticationProvider;
+//    }
+//
+//    @Bean
+//    public PasswordEncoder passwordEncoder(StrongPasswordEncryptor strongPasswordEncryptor) {
+//        PasswordEncoder passwordEncoder = new PasswordEncoder();
+//        passwordEncoder.setPasswordEncryptor(strongPasswordEncryptor);
+//        return passwordEncoder;
+//    }
+//
+//    @Bean
+//    public DaoAuthenticationProvider daoAuthenticationProvider(PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
+//        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+//        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
+//        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+//        return daoAuthenticationProvider;
+//    }
+//
+//    @Autowired
+//    public void configureAuthManager(AuthenticationManagerBuilder authenticationManagerBuilder) {
+//        authenticationManagerBuilder.authenticationProvider(authenticationProvider);
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
